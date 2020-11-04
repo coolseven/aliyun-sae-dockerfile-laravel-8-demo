@@ -4,7 +4,7 @@ RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo /app \
   && cd /app \
   && composer install --no-dev --verbose
 
-COPY --chown=root:root ["docker-entrypoint.sh", "/usr/bin/"]
+COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
 RUN chmod +rwx /usr/bin/docker-entrypoint.sh
 

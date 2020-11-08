@@ -18,9 +18,10 @@ ENTRYPOINT ["/init"]
 
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
-ARG appTagOrBranch=v20201108-3fa969a2-laravel-7.x
+ARG appTagOrBranch=v20201108-dd6586ae-laravel-7.x
 RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appTagOrBranch /app \
   && cd /app \
   && composer install --no-dev --verbose \
-  && chmod +rwx /usr/bin/docker-entrypoint.sh \
-  && sh -cex /usr/bin/docker-entrypoint.sh
+  && chown -R www-data:www-data /app \
+  && chmod -R 777 /app/storage \
+  && chmod +rwx /app/.aliyun-sae/post-deployed.sh

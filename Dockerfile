@@ -16,8 +16,6 @@ EXPOSE 80
 
 ENTRYPOINT ["/init"]
 
-COPY ["docker-entrypoint.sh", "/usr/bin/"]
-
 ARG appTagOrBranch=v20201108-dd6586ae-laravel-7.x
 RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appTagOrBranch /app \
   && cd /app \

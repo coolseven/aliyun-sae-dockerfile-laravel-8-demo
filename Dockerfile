@@ -18,8 +18,8 @@ ENTRYPOINT ["/init"]
 
 COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
-ARG appVersion=laravel-7.x
-RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appVersion /app \
+ARG appTagOrBranch=v20201108-a6427e06-laravel-7.x
+RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appTagOrBranch /app \
   && cd /app \
   && composer install --no-dev --verbose \
   && chmod +rwx /usr/bin/docker-entrypoint.sh \

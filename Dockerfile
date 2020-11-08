@@ -16,7 +16,7 @@ EXPOSE 80
 
 ENTRYPOINT ["/init"]
 
-ARG appTagOrBranch=v20201108-dd6586ae-laravel-7.x
+ARG appTagOrBranch=v20201108-d1fa4501-laravel-7.x
 RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appTagOrBranch /app \
   && cd /app \
   && composer install --no-dev --verbose \

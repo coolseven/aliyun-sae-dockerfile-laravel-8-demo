@@ -1,25 +1,10 @@
-FROM registry.cn-hangzhou.aliyuncs.com/docker-image-repo-for-develop/php-base:7.2.27
-
-RUN apk add nginx
-
-COPY s6-service-supervisor/etc/services.d/nginx/run  /etc/services.d/nginx/run
-COPY nginx/nginx.conf  /etc/nginx/nginx.conf
-
-COPY s6-service-supervisor/etc/services.d/php-fpm/run  /etc/services.d/php-fpm/run
-COPY php-fpm/php-fpm.conf  /use/local/etc/php-fpm.conf
-
-# https://github.com/just-containers/s6-overlay (1.9.1)
-COPY s6-overlay-amd64.tar.gz /tmp/s6-overlay-amd64.tar.gz
-RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
-
-EXPOSE 80
-
-ENTRYPOINT ["/init"]
+FROM registry.cn-hangzhou.aliyuncs.com/docker-image-repo-for-develop/sae-runtime-for-php:20201109-73116a00
 
 ARG appTagOrBranch=v20201108-d1fa4501-laravel-7.x
 RUN git clone https://github.com/coolseven/aliyun-sae-laravel-demo --branch $appTagOrBranch /app \
   && cd /app \
   && composer install --no-dev --verbose \
+  && composer clear-cache \
   && chown -R www-data:www-data /app \
   && chmod -R 777 /app/storage \
   && chmod +rwx /app/.aliyun-sae/post-deployed.sh
